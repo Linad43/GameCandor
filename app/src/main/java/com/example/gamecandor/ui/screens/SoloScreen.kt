@@ -1,4 +1,6 @@
 package com.example.gamecandor.ui.screens
 
-class SoloScreen {
+import androidx.navigation.NavHostController
+
+class SoloScreen(navController: NavHostController) {
 }

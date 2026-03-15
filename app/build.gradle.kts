@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
 //    id("kotlin-parcelize")
 //    id("kotlin-android-extensions")
 }
@@ -50,6 +51,10 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.ads.mobile.sdk)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -57,4 +62,14 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+}
+configurations.all {
+    exclude(group = "org.chromium.net", module = "cronet-api")
+    exclude(group = "org.chromium.net", module = "cronet-common")
+    exclude(group = "org.chromium.net", module = "cronet-shared")
+    exclude(group = "org.chromium.net", module = "cronet-fallback")
+    exclude(group = "org.chromium.net", module = "httpengine-native-provider")
 }

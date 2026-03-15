@@ -1,6 +1,5 @@
 package com.example.gamecandor.ui.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,12 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.gamecandor.data.GameSession
 
 @Composable
-fun MainScreen(navController: NavHostController) {
+fun ChoiceTypeGameScreen(navController: NavHostController) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -29,33 +27,21 @@ fun MainScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            "Искренность",
+            text = GameSession.currentGame,
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.padding(bottom = 32.dp)
         )
-
         Button(
-            onClick = { navController.navigate("new_game") },
+            onClick = { navController.navigate("category_screen") },
             modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Новая игра")
+            ){
+            Text("Standard game")
         }
-
         Button(
-            onClick = { navController.navigate("load_game") },
+            onClick = { navController.navigate("random_card") },
             modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Загрузить игру")
-        }
-
-        Button(onClick = {
-            if (GameSession.currentGame.isNotEmpty()) {
-                navController.navigate("random_card")
-            } else {
-                Toast.makeText(context, "Выберите игру сначала", Toast.LENGTH_SHORT).show()
-            }
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text("Случайная карта")
+        ){
+            Text("Random card")
         }
     }
 }
