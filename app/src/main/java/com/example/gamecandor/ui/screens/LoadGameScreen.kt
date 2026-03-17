@@ -1,5 +1,6 @@
 package com.example.gamecandor.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,8 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
+import com.example.gamecandor.ui.components.CardContent
 
 @Composable
 fun LoadGameScreen(navController: NavHostController) {
@@ -36,13 +39,22 @@ fun LoadGameScreen(navController: NavHostController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text("Выберите игру", style = MaterialTheme.typography.headlineLarge, modifier = Modifier.padding(bottom = 16.dp))
+        Text(
+            "Выберите игру",
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(games) { game ->
                 Button(onClick = {
                     GameSession.currentGame = game
-                    navController.navigate("random_card")
+                    CardRepository.load(context)
+                    if (CardRepository.getCards(context).isEmpty()) {
+                        navController.navigate(Screens.END_GAME.name)
+                    } else {
+                        navController.navigate(Screens.CHOICE_TYPE_GAME.name)
+                    }
                 }, modifier = Modifier.fillMaxWidth()) {
                     Text(game)
                 }

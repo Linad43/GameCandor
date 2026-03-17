@@ -12,20 +12,20 @@ import com.example.gamecandor.model.Category
 fun GameApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "main") {
-        composable("main") { MainScreen(navController) }
-        composable("new_game") { NewGameScreen(navController) }
-        composable("load_game") { LoadGameScreen(navController) }
-        composable("choice_type_game") { ChoiceTypeGameScreen(navController) }
-        composable("solo_game") { SoloScreen(navController) }
-        composable("random_card") { RandomCardScreen(navController) }
-        composable("category_screen") {
+    NavHost(navController = navController, startDestination = Screens.MAIN.name) {
+        composable(Screens.MAIN.name) { MainScreen(navController) }
+        composable(Screens.NEW_GAME.name) { NewGameScreen(navController) }
+        composable(Screens.LOAD_GAME.name) { LoadGameScreen(navController) }
+        composable(Screens.CHOICE_TYPE_GAME.name) { ChoiceTypeGameScreen(navController) }
+        composable(Screens.SOLO.name) { SoloScreen(navController) }
+        composable(Screens.RANDOM_CARD.name) { RandomCardScreen(navController) }
+        composable(Screens.CATEGORY.name) {
             CategoryScreen { category ->
-                navController.navigate("cards_screen/${category.name}")
+                navController.navigate("${Screens.CATEGORY.name}/${category.name}")
             }
         }
         composable(
-            route = "cards_screen/{category}",
+            route = "${Screens.CATEGORY.name}/{category}",
             arguments = listOf(
                 navArgument("category") { type = NavType.StringType }
             )
@@ -38,5 +38,6 @@ fun GameApp() {
 
             CategoryCardsScreen(category)
         }
+        composable(Screens.END_GAME.name) { EndGameScreen(navController) }
     }
 }

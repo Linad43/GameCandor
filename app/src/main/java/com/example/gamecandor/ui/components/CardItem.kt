@@ -122,7 +122,7 @@ fun CardItem(
                 onOpen(card)
             }
 
-            CardView(card)
+            CardContent(card)
         }
     }
 }

@@ -3,13 +3,17 @@ package com.example.gamecandor.ui.screens
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,11 +26,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
+import com.example.gamecandor.ui.screens.dialogs.GameExistDialog
 
 @Composable
 fun NewGameScreen(navController: NavHostController) {
     val context = LocalContext.current
     var gameName by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false) }
+    var pendingGameName by remember { mutableStateOf("") }
+
+
 
     Column(
         modifier = Modifier
@@ -46,10 +55,15 @@ fun NewGameScreen(navController: NavHostController) {
 
         Button(onClick = {
             if (gameName.isNotBlank()) {
-                GameRepository.createGame(context, gameName)
-                GameSession.currentGame = gameName
-                navController.navigate("choice_type_game") {
-                    popUpTo("main") { inclusive = false }
+                if (GameRepository.getGames(context).any { it == gameName }) {
+                    pendingGameName = gameName
+                    showDialog = true
+                } else {
+                    GameRepository.createGame(context, gameName)
+                    GameSession.currentGame = gameName
+                    navController.navigate(Screens.CHOICE_TYPE_GAME.name) {
+                        popUpTo(Screens.MAIN.name) { inclusive = false }
+                    }
                 }
             } else {
                 Toast.makeText(context, "Введите имя игры", Toast.LENGTH_SHORT).show()
@@ -57,5 +71,34 @@ fun NewGameScreen(navController: NavHostController) {
         }, modifier = Modifier.fillMaxWidth()) {
             Text("Создать и начать")
         }
+    }
+    if (showDialog) {
+        GameExistDialog(
+            show = showDialog,
+            onRestart = {
+                GameRepository.deleteGame(context, pendingGameName)
+                GameRepository.createGame(context, pendingGameName)
+
+                GameSession.currentGame = pendingGameName
+
+                navController.navigate(Screens.CHOICE_TYPE_GAME.name) {
+                    popUpTo(Screens.MAIN.name) { inclusive = false }
+                }
+
+                showDialog = false
+            },
+            onContinue = {
+                GameSession.currentGame = pendingGameName
+
+                navController.navigate(Screens.CHOICE_TYPE_GAME.name) {
+                    popUpTo(Screens.MAIN.name) { inclusive = false }
+                }
+
+                showDialog = false
+            },
+            onCancel = {
+                showDialog = false
+            }
+        )
     }
 }

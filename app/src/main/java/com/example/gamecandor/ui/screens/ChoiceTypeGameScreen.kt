@@ -32,13 +32,13 @@ fun ChoiceTypeGameScreen(navController: NavHostController) {
             modifier = Modifier.padding(bottom = 32.dp)
         )
         Button(
-            onClick = { navController.navigate("category_screen") },
+            onClick = { navController.navigate(Screens.CATEGORY.name) },
             modifier = Modifier.fillMaxWidth()
             ){
             Text("Standard game")
         }
         Button(
-            onClick = { navController.navigate("random_card") },
+            onClick = { navController.navigate(Screens.RANDOM_CARD.name) },
             modifier = Modifier.fillMaxWidth()
         ){
             Text("Random card")

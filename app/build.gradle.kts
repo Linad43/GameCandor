@@ -63,7 +63,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-
+    implementation("androidx.compose.material:material-icons-extended:1.6.0") // или актуальная версия Compose
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }
 configurations.all {

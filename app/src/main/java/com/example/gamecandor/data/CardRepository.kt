@@ -92,6 +92,12 @@ object CardRepository {
     fun load(context: Context) {
         cards = JsonLoader.loadCards(context)
 
+        val played = GameRepository.getPlayedCards(context, GameSession.currentGame)
+        cards = cards.filter { it.id !in played }
+//        if(cards.isEmpty())
+//            navController.navigate("choice_type_game")
+
+
         categoryDecks.clear()
 
         Category.entries.forEach { category ->
@@ -102,6 +108,9 @@ object CardRepository {
         }
     }
 
+    fun getCards(context: Context):List<Card>{
+        return cards
+    }
     // Получить карты по категории, исключая уже сыгранные для текущей игры
     fun getCardsByCategory(
         context: Context,
@@ -116,6 +125,7 @@ object CardRepository {
     // Отметить карту сыгранной для текущей игры
     fun markCardPlayed(context: Context, card: Card) {
         GameRepository.markCardPlayed(context, GameSession.currentGame, card.id)
+        load(context)
     }
 
     // Получить случайную карту из всех карт

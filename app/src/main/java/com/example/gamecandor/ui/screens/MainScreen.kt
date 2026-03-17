@@ -2,12 +2,14 @@ package com.example.gamecandor.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,10 +19,31 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.gamecandor.data.GameSession
+import com.example.gamecandor.ui.screens.dialogs.AppTopBar
 
 @Composable
 fun MainScreen(navController: NavHostController) {
     val context = LocalContext.current
+
+//    Scaffold(
+//        topBar = {
+//            AppTopBar(
+//                title = "Пример экрана",
+//                showBack = true,
+//                onBack = { navController.popBackStack() },
+//                showMenu = true,
+//                menuItems = listOf(
+//                    "Настройки" to { /* действие */ },
+//                    "Помощь" to { /* действие */ }
+//                )
+//            )
+//        },
+//        content = { padding ->
+//            // Основной контент
+//
+//        }
+//    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,27 +58,23 @@ fun MainScreen(navController: NavHostController) {
         )
 
         Button(
-            onClick = { navController.navigate("new_game") },
+            onClick = { navController.navigate(Screens.NEW_GAME.name) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Новая игра")
         }
 
         Button(
-            onClick = { navController.navigate("load_game") },
+            onClick = { navController.navigate(Screens.LOAD_GAME.name) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Загрузить игру")
         }
 
         Button(onClick = {
-            if (GameSession.currentGame.isNotEmpty()) {
-                navController.navigate("random_card")
-            } else {
-                Toast.makeText(context, "Выберите игру сначала", Toast.LENGTH_SHORT).show()
-            }
+            navController.navigate(Screens.RULES.name)
         }, modifier = Modifier.fillMaxWidth()) {
-            Text("Случайная карта")
+            Text("Rules")
         }
     }
 }

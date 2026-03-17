@@ -3,6 +3,7 @@ package com.example.gamecandor.ui.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -39,13 +42,13 @@ import com.example.gamecandor.model.Card
 import kotlin.math.roundToInt
 
 @Composable
-fun CardView(card: Card) {
+fun CardContent(card: Card) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxSize()
-            .padding(25.dp)
-            .height(420.dp),
+            .padding(25.dp),
+//            .height(420.dp),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
@@ -60,6 +63,8 @@ fun CardView(card: Card) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(20.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 card.questionIds.forEach { id ->
                     val text = CardRepository.getQuestionText(context, id)
@@ -67,7 +72,7 @@ fun CardView(card: Card) {
                         text,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .weight(1f)
+//                            .weight(1f)
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                 }
@@ -75,6 +80,7 @@ fun CardView(card: Card) {
         }
     }
 }
+
 //@Composable
 //fun CardView(
 //    card: Card,
@@ -120,7 +126,7 @@ fun CardView(card: Card) {
 //    }
 //}
 @Composable
-fun CardView(
+fun SwipeableCard(
     card: Card,
     onPlayed: () -> Unit,
     onCancel: () -> Unit
@@ -178,22 +184,16 @@ fun CardView(
                         },
                         onDragEnd = {
                             when {
-                                offsetX > 300 -> {
-                                    onPlayed()
-                                }
-                                offsetX < -300 -> {
-                                    onCancel()
-                                }
-                                else -> {
-                                    offsetX = 0f
-                                }
+                                offsetX > 300 -> onPlayed()
+                                offsetX < -300 -> onCancel()
+                                else -> offsetX = 0f
                             }
                         }
                     )
                 },
             shape = RoundedCornerShape(20.dp)
         ) {
-            CardView(card)
+            CardContent(card)
         }
     }
 }

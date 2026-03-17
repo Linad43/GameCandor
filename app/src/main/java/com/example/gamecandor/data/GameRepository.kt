@@ -59,4 +59,9 @@ object GameRepository {
         val file = File(context.filesDir, FILE_NAME)
         file.writeText(json.encodeToString(saves))
     }
+
+    fun deleteGame(context: Context, name: String) {
+        saves.games.removeAll { it.name == name }
+        save(context, saves)
+    }
 }

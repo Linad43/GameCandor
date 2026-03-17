@@ -39,7 +39,7 @@ import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.model.Category
 import com.example.gamecandor.ui.components.CardItem
 import com.example.gamecandor.model.Card
-import com.example.gamecandor.ui.components.CardView
+import com.example.gamecandor.ui.components.SwipeableCard
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
@@ -74,7 +74,7 @@ fun CategoryCardsScreen(category: Category) {
 
     } else {
 //        CardView(selectedCard!!)
-        CardView(
+        SwipeableCard(
             card = selectedCard!!,
             onPlayed = {
                 CardRepository.markCardPlayed(context, selectedCard!!)

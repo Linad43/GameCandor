@@ -33,11 +33,16 @@ import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
 import com.example.gamecandor.model.Card
-import com.example.gamecandor.ui.components.CardView
+import com.example.gamecandor.ui.components.SwipeableCard
 
 @Composable
 fun RandomCardScreen(navController: NavHostController) {
     val context = LocalContext.current
+    CardRepository.load(context)
+    if (CardRepository.getCards(context).isEmpty()) {
+        navController.navigate("end_game")
+        return
+    }
     var card by remember { mutableStateOf<Card>(CardRepository.getRandomCard()) }
 
     DisposableEffect(Unit) {
@@ -53,10 +58,12 @@ fun RandomCardScreen(navController: NavHostController) {
         label = "card_animation",
         transitionSpec = {
             scaleIn(initialScale = 0.8f) + scaleIn(initialScale = 1.5f) + scaleIn(initialScale = 1f) + fadeIn() togetherWith
-                    scaleOut(targetScale = 0.8f)+scaleOut(targetScale = 1.2f)+scaleOut(targetScale = 1f) + fadeOut()
+                    scaleOut(targetScale = 0.8f) + scaleOut(targetScale = 1.2f) + scaleOut(
+                targetScale = 1f
+            ) + fadeOut()
         }
     ) { targetCard ->
-        CardView(
+        SwipeableCard(
             card = targetCard,
             onPlayed = {
                 CardRepository.markCardPlayed(context, targetCard)
