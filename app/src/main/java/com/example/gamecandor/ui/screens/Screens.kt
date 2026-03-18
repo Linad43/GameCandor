@@ -9,6 +9,6 @@ enum class Screens {
     MAIN,
     NEW_GAME,
     RANDOM_CARD,
-    SOLO,
+    SINGLE,
     RULES
 }

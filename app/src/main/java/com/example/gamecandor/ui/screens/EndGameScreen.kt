@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 @Composable
-fun EndGameScreen(navController: NavHostController){
+fun EndGameScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

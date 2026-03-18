@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -81,50 +80,6 @@ fun CardContent(card: Card) {
     }
 }
 
-//@Composable
-//fun CardView(
-//    card: Card,
-//    onPlayed: () -> Unit,
-//    onCancel: () -> Unit
-//) {
-//    var offsetX by remember { mutableStateOf(0f) }
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize(),
-//        contentAlignment = Alignment.Center
-//    ) {
-//
-//        Card(
-//            modifier = Modifier
-////                .size(220.dp, 360.dp)
-//                .fillMaxSize()
-//                .offset { IntOffset(offsetX.roundToInt(), 0) }
-//                .pointerInput(Unit) {
-//                    detectDragGestures(
-//                        onDrag = { _, dragAmount ->
-//                            offsetX += dragAmount.x
-//                        },
-//                        onDragEnd = {
-//                            when {
-//                                offsetX > 300 -> {
-//                                    onPlayed()
-//                                }
-//                                offsetX < -300 -> {
-//                                    onCancel()
-//                                }
-//                                else -> {
-//                                    offsetX = 0f
-//                                }
-//                            }
-//                        }
-//                    )
-//                },
-//            shape = RoundedCornerShape(20.dp)
-//        ) {
-//            CardView(card)
-//        }
-//    }
-//}
 @Composable
 fun SwipeableCard(
     card: Card,

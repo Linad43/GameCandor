@@ -7,7 +7,7 @@ data class Card(
     val id: Int,
     val category: Category,
     val questionIds: List<Int>
-): Parcelable {
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

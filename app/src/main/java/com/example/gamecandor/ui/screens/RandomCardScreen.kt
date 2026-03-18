@@ -5,29 +5,14 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
@@ -38,7 +23,7 @@ import com.example.gamecandor.ui.components.SwipeableCard
 @Composable
 fun RandomCardScreen(navController: NavHostController) {
     val context = LocalContext.current
-    CardRepository.load(context)
+    CardRepository.loadCards(context)
     if (CardRepository.getCards(context).isEmpty()) {
         navController.navigate("end_game")
         return

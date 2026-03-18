@@ -7,7 +7,7 @@ import java.io.File
 
 object GameRepository {
     private const val FILE_NAME = "games.json"
-    private var saves:GameSaveList = GameSaveList()
+    private var saves: GameSaveList = GameSaveList()
     private val json = Json { prettyPrint = true }
 
     // Получить список всех игр
@@ -55,7 +55,7 @@ object GameRepository {
         }
     }
 
-    private fun save(context: Context, saves: GameSaveList) {
+    fun save(context: Context, saves: GameSaveList) {
         val file = File(context.filesDir, FILE_NAME)
         file.writeText(json.encodeToString(saves))
     }
@@ -63,5 +63,9 @@ object GameRepository {
     fun deleteGame(context: Context, name: String) {
         saves.games.removeAll { it.name == name }
         save(context, saves)
+    }
+
+    fun getSaves(): GameSaveList {
+        return saves
     }
 }

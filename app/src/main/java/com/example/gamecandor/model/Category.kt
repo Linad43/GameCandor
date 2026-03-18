@@ -5,8 +5,8 @@ import androidx.annotation.DrawableRes
 import com.example.gamecandor.R
 
 enum class Category(
-    @DrawableRes val background:Int,
-    @ColorRes val color:Int
+    @DrawableRes val background: Int,
+    @ColorRes val color: Int
 ) {
     ACTIVITY(
         R.drawable.bg_activity,

@@ -3,34 +3,34 @@ package com.example.gamecandor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.navigation.NavController
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
+import com.example.gamecandor.model.Card
 import com.example.gamecandor.ui.screens.GameApp
-import com.example.gamecandor.ui.screens.MainScreen
 
 class MainActivity : ComponentActivity() {
-    override fun onPause() {
-        super.onPause()
-        if (GameSession.currentGame.isNotEmpty()) {
-            // Все изменения уже в GameRepository, но для уверенности:
-            GameSession.saveCurrentGame(this)
-        }
-    }
+//    override fun onPause() {
+//        super.onPause()
+//        if (GameSession.currentGame.isNotEmpty()) {
+//            // Все изменения уже в GameRepository, но для уверенности:
+//            GameSession.saveCurrentGame(this)
+//        }
+//    }
 
-    override fun onStop() {
-        super.onStop()
-        if (GameSession.currentGame.isNotEmpty()) {
-            // Все изменения уже в GameRepository, но для уверенности:
-            GameSession.saveCurrentGame(this)
-        }
-    }
+//    override fun onStop() {
+//        super.onStop()
+//        if (GameSession.currentGame.isNotEmpty()) {
+//            // Все изменения уже в GameRepository, но для уверенности:
+//            GameSession.saveCurrentGame(this)
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        CardRepository.load(this)
+        CardRepository.loadCards(this)
+        CardRepository.loadQuestions(this)
         GameRepository.load(this)
         setContent {
             GameApp()

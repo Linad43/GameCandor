@@ -3,6 +3,8 @@ package com.example.gamecandor.data
 import android.content.Context
 import com.example.gamecandor.model.Card
 import com.example.gamecandor.model.Category
+import com.example.gamecandor.model.Question
+import com.example.gamecandor.model.QuestionWithAnswer
 
 //
 //object CardRepository {
@@ -87,16 +89,14 @@ object CardRepository {
 
     private var cards: List<Card> = emptyList()
     private val categoryDecks = mutableMapOf<Category, MutableList<Card>>()
+    private var questions: List<Question> = emptyList()
 
     // Загрузка карт
-    fun load(context: Context) {
+    fun loadCards(context: Context) {
         cards = JsonLoader.loadCards(context)
 
         val played = GameRepository.getPlayedCards(context, GameSession.currentGame)
         cards = cards.filter { it.id !in played }
-//        if(cards.isEmpty())
-//            navController.navigate("choice_type_game")
-
 
         categoryDecks.clear()
 
@@ -108,9 +108,14 @@ object CardRepository {
         }
     }
 
-    fun getCards(context: Context):List<Card>{
+    fun loadQuestions(context: Context) {
+        questions = JsonLoader.loadQuestions(context)
+    }
+
+    fun getCards(context: Context): List<Card> {
         return cards
     }
+
     // Получить карты по категории, исключая уже сыгранные для текущей игры
     fun getCardsByCategory(
         context: Context,
@@ -125,7 +130,7 @@ object CardRepository {
     // Отметить карту сыгранной для текущей игры
     fun markCardPlayed(context: Context, card: Card) {
         GameRepository.markCardPlayed(context, GameSession.currentGame, card.id)
-        load(context)
+        loadCards(context)
     }
 
     // Получить случайную карту из всех карт
@@ -134,16 +139,33 @@ object CardRepository {
     }
 
     // Получить список вопросов карты
-    fun getQuestions(context: Context, card: Card): List<String> {
+    fun getQuestionsInCard(context: Context, card: Card): List<String> {
         return card.questionIds.map {
             getQuestionText(context, it)
         }
     }
 
+    fun getQuestions(): List<Question> {
+        return questions
+    }
+
     // Получить текст вопроса по id
     fun getQuestionText(context: Context, id: Int): String {
-        val name = "q$id"
-        val resId = context.resources.getIdentifier(name, "string", context.packageName)
-        return context.getString(resId)
+        return questions[id].text
+    }
+
+    fun getAllQuestions(context: Context): List<QuestionWithAnswer> {
+        val list = mutableListOf<QuestionWithAnswer>()
+
+        for (question in questions) {
+            list.add(
+                QuestionWithAnswer(
+                    id = question.id,
+                    question = question.text,
+                    answer = null
+                )
+            )
+        }
+        return list
     }
 }
