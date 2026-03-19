@@ -12,25 +12,32 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
+import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameSession
 import com.example.gamecandor.ui.screens.dialogs.AppTopBar
 
 @Composable
 fun ChoiceTypeGameScreen(navController: NavHostController) {
     val context = LocalContext.current
+    val emptyCards = CardRepository.getCards(context).isEmpty()
+
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             AppTopBar(
-                title = "Answers List",
-                showBack = false,
+                title = stringResource(R.string.choice_type_game),
+                showBack = true,
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    "Настройки" to { /* действие */ },
-                    "Помощь" to { /* действие */ }
+                    stringResource(R.string.settings) to { /* действие */ },
+                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -49,16 +56,21 @@ fun ChoiceTypeGameScreen(navController: NavHostController) {
                     modifier = Modifier.padding(bottom = 32.dp)
                 )
                 Button(
-                    onClick = { navController.navigate(Screens.CATEGORY.name) },
+                    onClick = {
+                        if (!emptyCards) navController.navigate(Screens.CATEGORY.name)
+                        else navController.navigate(Screens.END_GAME.name) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Standard game")
+                    Text(stringResource(R.string.standard_rules))
                 }
                 Button(
-                    onClick = { navController.navigate(Screens.RANDOM_CARD.name) },
+                    onClick = {
+                        if (!emptyCards) navController.navigate(Screens.RANDOM_CARD.name)
+                        else navController.navigate(Screens.END_GAME.name)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Random card")
+                    Text(stringResource(R.string.random_card))
                 }
             }
         }

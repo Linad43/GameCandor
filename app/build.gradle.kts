@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.ads.mobile.sdk)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material3)
+    implementation(libs.play.services.vision)
+    implementation(libs.androidx.compose.ui.text)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,6 +65,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    implementation("org.commonmark:commonmark:0.21.0")
     implementation("androidx.compose.material:material-icons-extended:1.6.0") // или актуальная версия Compose
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 }

@@ -26,8 +26,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.model.AnswersRepository
 import com.example.gamecandor.ui.components.QuestionText
@@ -53,13 +55,13 @@ fun SinglePlayerCard(
     Scaffold(
         topBar = {
             AppTopBar(
-                title = "Answers List",
+                title = stringResource(R.string.single_game),
                 showBack = false,
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    "Настройки" to { /* действие */ },
-                    "Помощь" to { /* действие */ }
+                    stringResource(R.string.settings) to { /* действие */ },
+                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -102,7 +104,7 @@ fun SinglePlayerCard(
                 OutlinedTextField(
                     value = answerText,
                     onValueChange = { answerText = it },
-                    label = { Text("Ваш ответ") },
+                    label = { Text(stringResource(R.string.you_answer)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(2f),
@@ -114,11 +116,15 @@ fun SinglePlayerCard(
                 Button(
                     onClick = {
                         AnswersRepository.saveAnswer(context, questionId, answerText)
-                        Toast.makeText(context, "Ответ сохранён", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            R.string.answer_saved,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-                    Text("Сохранить ответ")
+                    Text(stringResource(R.string.save_answer))
                 }
             }
         }

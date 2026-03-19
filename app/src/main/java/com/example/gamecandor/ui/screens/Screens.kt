@@ -1,6 +1,7 @@
 package com.example.gamecandor.ui.screens
 
 enum class Screens {
+    WELCOME,
     CATEGORY,
     CATEGORY_CARD,
     CHOICE_TYPE_GAME,

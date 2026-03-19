@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.gamecandor.R
 
 @Composable
 fun GameExistDialog(
@@ -38,14 +40,14 @@ fun GameExistDialog(
             ) {
 
                 Text(
-                    text = "Игра уже существует",
+                    text = stringResource(R.string.game_exists),
                     style = MaterialTheme.typography.titleLarge
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Игра с таким названием уже есть.\nЧто хотите сделать?",
+                    text = stringResource(R.string.game_exists_what_doing),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
@@ -58,21 +60,21 @@ fun GameExistDialog(
                         onClick = onRestart,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("🔄 Начать заново")
+                        Text(stringResource(R.string.start_over))
                     }
 
                     TextButton(
                         onClick = onContinue,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("▶️ Продолжить")
+                        Text(stringResource(R.string.continue_game))
                     }
 
                     TextButton(
                         onClick = onCancel,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Отмена")
+                        Text(stringResource(R.string.cancel))
                     }
                 }
             }

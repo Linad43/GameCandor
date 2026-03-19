@@ -18,12 +18,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
 import com.example.gamecandor.model.AnswersRepository
 import com.example.gamecandor.ui.components.QuestionItem
 import com.example.gamecandor.ui.screens.dialogs.AppTopBar
+
 
 @Composable
 fun AnswersListScreen(navController: NavHostController) {
@@ -48,15 +52,16 @@ fun AnswersListScreen(navController: NavHostController) {
         }
     }
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             AppTopBar(
-                title = "Answers List",
-                showBack = false,
+                title = stringResource(R.string.single_game),
+                showBack = true,
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    "Настройки" to { /* действие */ },
-                    "Помощь" to { /* действие */ }
+                    stringResource(R.string.settings) to { /* действие */ },
+                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -69,7 +74,12 @@ fun AnswersListScreen(navController: NavHostController) {
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    placeholder = { Text("Found in question") },
+                    placeholder = {
+                        Text(
+                            stringResource(R.string.found_question),
+                            color = Color.Gray
+                        )
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(12.dp),
@@ -95,7 +105,7 @@ fun AnswersListScreen(navController: NavHostController) {
                         if (q != null) {
                             navController.navigate("${Screens.SINGLE.name}/${q.id}")
                         } else {
-                            Toast.makeText(context, "Все вопросы отвечены", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, R.string.finished_game, Toast.LENGTH_SHORT)
                                 .show()
                         }
                     },
@@ -103,7 +113,7 @@ fun AnswersListScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text("Случайный вопрос без ответа")
+                    Text(stringResource(R.string.random_question))
                 }
             }
         }

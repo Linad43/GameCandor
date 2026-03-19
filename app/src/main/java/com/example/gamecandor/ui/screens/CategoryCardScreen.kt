@@ -1,6 +1,7 @@
 package com.example.gamecandor.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -13,9 +14,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.model.Card
 import com.example.gamecandor.model.Category
@@ -34,15 +38,23 @@ fun CategoryCardsScreen(navController: NavHostController, category: Category) {
 
     if (selectedCard == null) {
         Scaffold(
+            containerColor = Color.Transparent,
             topBar = {
                 AppTopBar(
-                    title = "Answers List",
-                    showBack = false,
+                    title = stringResource(
+                        when (category) {
+                            Category.ACTIVITY -> R.string.activity
+                            Category.BODY -> R.string.body
+                            Category.CONTACTS -> R.string.contacts
+                            Category.MEANING -> R.string.meaning
+                        }
+                    ),
+                    showBack = true,
                     onBack = { navController.popBackStack() },
                     showMenu = true,
                     menuItems = listOf(
-                        "Настройки" to { /* действие */ },
-                        "Помощь" to { /* действие */ }
+                        stringResource(R.string.settings) to { /* действие */ },
+                        stringResource(R.string.help) to { /* действие */ }
                     )
                 )
             },
@@ -68,14 +80,43 @@ fun CategoryCardsScreen(navController: NavHostController, category: Category) {
             }
         )
     } else {
-        SwipeableCard(
-            card = selectedCard!!,
-            onPlayed = {
-                CardRepository.markCardPlayed(context, selectedCard!!)
-                selectedCard = null
+        Scaffold(
+            containerColor = Color.Transparent,
+            topBar = {
+                AppTopBar(
+                    title = stringResource(
+                        when (category) {
+                            Category.ACTIVITY -> R.string.activity
+                            Category.BODY -> R.string.body
+                            Category.CONTACTS -> R.string.contacts
+                            Category.MEANING -> R.string.meaning
+                        }
+                    ),
+                    showBack = true,
+                    onBack = { selectedCard = null },
+                    showMenu = true,
+                    menuItems = listOf(
+                        stringResource(R.string.settings) to { /* действие */ },
+                        stringResource(R.string.help) to { /* действие */ }
+                    )
+                )
             },
-            onCancel = {
-                selectedCard = null
+            content = { padding ->
+                Box(
+                    modifier = Modifier
+                        .padding(padding)
+                ) {
+                    SwipeableCard(
+                        card = selectedCard!!,
+                        onPlayed = {
+                            CardRepository.markCardPlayed(context, selectedCard!!)
+                            selectedCard = null
+                        },
+                        onCancel = {
+                            selectedCard = null
+                        }
+                    )
+                }
             }
         )
     }

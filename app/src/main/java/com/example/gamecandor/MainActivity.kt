@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
-import com.example.gamecandor.data.GameSession
-import com.example.gamecandor.model.Card
 import com.example.gamecandor.ui.screens.GameApp
 
 class MainActivity : ComponentActivity() {

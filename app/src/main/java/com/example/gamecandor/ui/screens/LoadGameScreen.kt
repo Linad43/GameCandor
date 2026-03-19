@@ -16,9 +16,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
@@ -29,15 +32,16 @@ fun LoadGameScreen(navController: NavHostController) {
     val context = LocalContext.current
     val games = remember { mutableStateListOf<String>() }
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             AppTopBar(
-                title = "Answers List",
-                showBack = false,
+                title = stringResource(R.string.load_game),
+                showBack = true,
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    "Настройки" to { /* действие */ },
-                    "Помощь" to { /* действие */ }
+                    stringResource(R.string.settings) to { /* действие */ },
+                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -54,7 +58,7 @@ fun LoadGameScreen(navController: NavHostController) {
                     .padding(16.dp)
             ) {
                 Text(
-                    "Выберите игру",
+                    stringResource(R.string.choice_game),
                     style = MaterialTheme.typography.headlineLarge,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )

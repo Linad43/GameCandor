@@ -12,12 +12,12 @@ import com.example.gamecandor.model.Category
 fun GameApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screens.MAIN.name) {
+    NavHost(navController = navController, startDestination = Screens.WELCOME.name) {
         composable(Screens.MAIN.name) { MainScreen(navController) }
         composable(Screens.NEW_GAME.name) { NewGameScreen(navController) }
         composable(Screens.LOAD_GAME.name) { LoadGameScreen(navController) }
         composable(Screens.CHOICE_TYPE_GAME.name) { ChoiceTypeGameScreen(navController) }
-        composable(Screens.SINGLE.name) { AnswersListScreen(navController) }
+//        composable(Screens.SINGLE.name) { AnswersListScreen(navController) }
         composable(Screens.RANDOM_CARD.name) { RandomCardScreen(navController) }
         composable(Screens.CATEGORY.name) {
             CategoryScreen(navController) { category ->
@@ -42,5 +42,7 @@ fun GameApp() {
         }
         composable(Screens.END_GAME.name) { EndGameScreen(navController) }
         composable(Screens.SINGLE.name) { AnswersListScreen(navController) }
+        composable(Screens.RULES.name) { RulesScreen(navController) }
+        composable(Screens.WELCOME.name) { WelcomeScreen(navController) }
     }
 }

@@ -11,25 +11,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
 import com.example.gamecandor.ui.screens.dialogs.AppTopBar
 
 @Composable
 fun MainScreen(navController: NavHostController) {
     val context = LocalContext.current
-
+//    navController.popBackStack()
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             AppTopBar(
-                title = "Искренность",
+                title = stringResource(R.string.app_name),
                 showBack = false,
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    "Настройки" to { /* действие */ },
-                    "Помощь" to { /* действие */ }
+                    stringResource(R.string.settings) to { /* действие */ },
+                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -43,36 +47,30 @@ fun MainScreen(navController: NavHostController) {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-//                Text(
-//                    "Искренность",
-//                    style = MaterialTheme.typography.headlineLarge,
-//                    modifier = Modifier.padding(bottom = 32.dp)
-//                )
-
                 Button(
                     onClick = { navController.navigate(Screens.NEW_GAME.name) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Новая игра")
+                    Text(stringResource(R.string.new_game))
                 }
 
                 Button(
                     onClick = { navController.navigate(Screens.LOAD_GAME.name) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Загрузить игру")
+                    Text(stringResource(R.string.load_game))
                 }
                 Button(
                     onClick = { navController.navigate(Screens.SINGLE.name) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Single game")
+                    Text(stringResource(R.string.single_game))
                 }
 
                 Button(onClick = {
                     navController.navigate(Screens.RULES.name)
                 }, modifier = Modifier.fillMaxWidth()) {
-                    Text("Rules")
+                    Text(stringResource(R.string.rules))
                 }
             }
         }

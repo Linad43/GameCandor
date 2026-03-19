@@ -18,9 +18,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.gamecandor.R
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
 import com.example.gamecandor.ui.screens.dialogs.AppTopBar
@@ -34,15 +37,16 @@ fun NewGameScreen(navController: NavHostController) {
     var pendingGameName by remember { mutableStateOf("") }
 
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             AppTopBar(
-                title = "Answers List",
-                showBack = false,
+                title = stringResource(R.string.new_game),
+                showBack = true,
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    "Настройки" to { /* действие */ },
-                    "Помощь" to { /* действие */ }
+                    stringResource(R.string.settings) to { /* действие */ },
+                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -56,12 +60,15 @@ fun NewGameScreen(navController: NavHostController) {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Создать новую игру", style = MaterialTheme.typography.headlineLarge)
+                Text(
+                    stringResource(R.string.create_new_game),
+                    style = MaterialTheme.typography.headlineLarge
+                )
 
                 OutlinedTextField(
                     value = gameName,
                     onValueChange = { gameName = it },
-                    label = { Text("Имя игры") },
+                    label = { Text(stringResource(R.string.name_game)) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -78,10 +85,14 @@ fun NewGameScreen(navController: NavHostController) {
                             }
                         }
                     } else {
-                        Toast.makeText(context, "Введите имя игры", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            R.string.enter_name_game,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }, modifier = Modifier.fillMaxWidth()) {
-                    Text("Создать и начать")
+                    Text(stringResource(R.string.create_and_begin))
                 }
             }
             if (showDialog) {
