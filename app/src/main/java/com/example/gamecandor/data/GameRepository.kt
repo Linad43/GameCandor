@@ -9,11 +9,21 @@ object GameRepository {
     private const val FILE_NAME = "games.json"
     private var saves: GameSaveList = GameSaveList()
     private val json = Json { prettyPrint = true }
+    private lateinit var textSize: TextSize
+    private lateinit var languageText: LanguageText
 
     // Получить список всех игр
     fun getGames(context: Context): List<String> {
 //        val saves = load(context)
         return saves.games.map { it.name }
+    }
+
+    fun getSizeText(): TextSize {
+        return textSize
+    }
+
+    fun getLanguageText(): LanguageText {
+        return languageText
     }
 
     // Создать новую игру
@@ -53,11 +63,26 @@ object GameRepository {
         } else {
             GameSaveList()
         }
+        languageText = saves.language
+        textSize = saves.textSize
     }
 
     fun save(context: Context, saves: GameSaveList) {
         val file = File(context.filesDir, FILE_NAME)
         file.writeText(json.encodeToString(saves))
+    }
+
+    fun saveSettings(context: Context, languageText: LanguageText, textSize: TextSize) {
+        load(context)
+        val currentSave = saves ?: GameSaveList()
+
+        val updatedSave = currentSave.copy(
+            language = languageText,
+            textSize = textSize
+        )
+
+        save(context, updatedSave)
+        load(context)
     }
 
     fun deleteGame(context: Context, name: String) {
@@ -67,5 +92,13 @@ object GameRepository {
 
     fun getSaves(): GameSaveList {
         return saves
+    }
+
+    fun setLanguageText(languageText: LanguageText) {
+        this.languageText = languageText
+    }
+
+    fun setTextSize(textSize: TextSize) {
+        this.textSize = textSize
     }
 }

@@ -3,12 +3,16 @@ package com.example.gamecandor.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
+import com.example.gamecandor.data.TextSize
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -52,6 +56,32 @@ fun AndroidCandorTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
+        content = content
+    )
+}
+@Composable
+fun getTypography(textSize: TextSize): Typography {
+
+    val scale = when (textSize) {
+        TextSize.SMALL -> 1f
+        TextSize.MEDIUM -> 1.4f
+        TextSize.LARGE -> 1.8f
+    }
+
+    return Typography(
+        bodyLarge = TextStyle(fontSize = (16 * scale).sp),
+        bodyMedium = TextStyle(fontSize = (14 * scale).sp),
+        titleLarge = TextStyle(fontSize = (22 * scale).sp),
+        titleMedium = TextStyle(fontSize = (18 * scale).sp)
+    )
+}
+@Composable
+fun AppTheme(
+    textSize: TextSize,
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        typography = getTypography(textSize),
         content = content
     )
 }

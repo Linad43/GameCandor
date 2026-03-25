@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,15 +40,14 @@ fun QuestionItem(
 
             Text(
                 text = item.question,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleMedium,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = item.answer?.take(50)?.let { "$it..." } ?: "Нет ответа",
-                fontSize = 14.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray
             )
         }

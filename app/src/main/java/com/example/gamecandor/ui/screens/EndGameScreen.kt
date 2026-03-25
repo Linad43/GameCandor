@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +56,7 @@ fun EndGameScreen(navController: NavHostController) {
             ) {
                 Text(
                     text = stringResource(R.string.finished_game),
-                    fontSize = 42.sp,
+                    style = MaterialTheme.typography.titleLarge,
                     color = Color.White
                 )
             }

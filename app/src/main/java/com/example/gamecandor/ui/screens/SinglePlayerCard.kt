@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -60,8 +61,10 @@ fun SinglePlayerCard(
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    stringResource(R.string.settings) to { /* действие */ },
-                    stringResource(R.string.help) to { /* действие */ }
+                    stringResource(R.string.settings) to {
+                        navController.navigate(Screens.SETTINGS.name)
+                    },
+//                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -104,7 +107,12 @@ fun SinglePlayerCard(
                 OutlinedTextField(
                     value = answerText,
                     onValueChange = { answerText = it },
-                    label = { Text(stringResource(R.string.you_answer)) },
+                    label = {
+                        Text(
+                            stringResource(R.string.you_answer),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(2f),
@@ -124,7 +132,12 @@ fun SinglePlayerCard(
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
-                    Text(stringResource(R.string.save_answer))
+                    Text(
+                        stringResource(R.string.save_answer),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
                 }
             }
         }

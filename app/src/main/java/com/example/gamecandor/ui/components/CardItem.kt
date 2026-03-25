@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -104,29 +105,13 @@ fun CardBack(card: Card) {
 
         Text(
             text = (card.id - (card.category.ordinal * 22)).toString(),
-            modifier = Modifier
-                .background(
-                    Color.White.copy(alpha = 0.4f),
-                    shape = RoundedCornerShape(6.dp)
-                )
-                .padding(10.dp),
-            fontSize = 28.sp
+//            modifier = Modifier
+//                .background(
+//                    Color.White.copy(alpha = 0.4f),
+//                    shape = RoundedCornerShape(6.dp)
+//                )
+//                .padding(10.dp),
+            style = MaterialTheme.typography.titleLarge,
         )
     }
 }
-
-//@Composable
-//fun CardFront(card: Card) {
-//    Box(
-//        modifier = Modifier.fillMaxSize(),
-//        contentAlignment = Alignment.Center
-//    ) {
-//
-////        Image(
-////            painter = painterResource(card.category.background),
-////            contentDescription = null,
-////            modifier = Modifier.fillMaxSize(),
-////            contentScale = ContentScale.Crop
-////        )
-//    }
-//}

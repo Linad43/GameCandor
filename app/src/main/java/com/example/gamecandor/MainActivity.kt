@@ -3,9 +3,14 @@ package com.example.gamecandor
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.ui.screens.GameApp
+import com.example.gamecandor.ui.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
 //    override fun onPause() {
@@ -27,65 +32,29 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         CardRepository.loadCards(this)
         CardRepository.loadQuestions(this)
         GameRepository.load(this)
+        val saved = GameRepository.getSaves()
         setContent {
-            GameApp()
-//            MainScreen(gameApp.)
-//            var selectedCategory by remember {
-//                mutableStateOf<Category?>(null)
-//            }
-//
-//            if (selectedCategory == null) {
-//
-//                CategoryScreen(
-//                    onCategorySelected = { category ->
-//                        selectedCategory = category
-//                    }
-//                )
-//
-//            } else {
-//
-//                CategoryCardsScreen(
-//                    category = selectedCategory!!
-//                )
-//
-//            }
-//            GameScreen()
+            var textSize by remember { mutableStateOf(saved.textSize) }
+            AppTheme(textSize) {
+
+                GameApp(
+                    onTextSizeChange = { newSize ->
+
+                        // 🔥 обновляем UI
+                        textSize = newSize
+
+                        // 💾 сохраняем
+                        val updated = GameRepository.getSaves().copy(
+                            textSize = newSize
+                        )
+                        GameRepository.save(this, updated)
+                    }
+                )
+            }
         }
     }
 }
-
-//@Composable
-//fun GameScreen() {
-//    val context = LocalContext.current
-//    var currentCard by rememberSaveable {
-//        mutableStateOf(
-//            CardRepository.getRandomCard()
-//        )
-//    }
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .padding(24.dp),
-//
-//        verticalArrangement = Arrangement.Center,
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Spacer(modifier = Modifier.height(20.dp))
-//
-//        currentCard?.let {
-//            CardView(it)
-//        }
-//
-//        Button(
-//            onClick = {
-//                currentCard = JsonLoader.loadCards(context).random()
-//            }
-//        ) {
-//            Text("New card")
-//        }
-//    }
-//}

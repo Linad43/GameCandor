@@ -1,6 +1,7 @@
 package com.example.gamecandor.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,8 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,8 +49,10 @@ fun NewGameScreen(navController: NavHostController) {
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    stringResource(R.string.settings) to { /* действие */ },
-                    stringResource(R.string.help) to { /* действие */ }
+                    stringResource(R.string.settings) to {
+                        navController.navigate(Screens.SETTINGS.name)
+                    },
+//                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -62,14 +68,34 @@ fun NewGameScreen(navController: NavHostController) {
             ) {
                 Text(
                     stringResource(R.string.create_new_game),
-                    style = MaterialTheme.typography.headlineLarge
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.White
                 )
 
                 OutlinedTextField(
                     value = gameName,
                     onValueChange = { gameName = it },
-                    label = { Text(stringResource(R.string.name_game)) },
-                    modifier = Modifier.fillMaxWidth()
+                    label = {
+                        Text(
+                            text = stringResource(R.string.name_game),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.LightGray
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.White,
+
+                        cursorColor = Color.White,
+
+                        // фон внутри поля
+//                        focusedContainerColor = Color.Transparent,
+//                        unfocusedContainerColor = Color.Transparent
+                    )
                 )
 
                 Button(onClick = {
@@ -92,7 +118,12 @@ fun NewGameScreen(navController: NavHostController) {
                         ).show()
                     }
                 }, modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(R.string.create_and_begin))
+                    Text(
+                        stringResource(R.string.create_and_begin),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
                 }
             }
             if (showDialog) {

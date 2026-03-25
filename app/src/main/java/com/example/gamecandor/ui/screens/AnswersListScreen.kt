@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -60,8 +61,10 @@ fun AnswersListScreen(navController: NavHostController) {
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    stringResource(R.string.settings) to { /* действие */ },
-                    stringResource(R.string.help) to { /* действие */ }
+                    stringResource(R.string.settings) to {
+                        navController.navigate(Screens.SETTINGS.name)
+                    },
+//                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -77,7 +80,8 @@ fun AnswersListScreen(navController: NavHostController) {
                     placeholder = {
                         Text(
                             stringResource(R.string.found_question),
-                            color = Color.Gray
+                            color = Color.Gray,
+                            style = MaterialTheme.typography.bodyMedium,
                         )
                     },
                     modifier = Modifier
@@ -113,7 +117,12 @@ fun AnswersListScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .padding(16.dp)
                 ) {
-                    Text(stringResource(R.string.random_question))
+                    Text(
+                        stringResource(R.string.random_question),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
                 }
             }
         }

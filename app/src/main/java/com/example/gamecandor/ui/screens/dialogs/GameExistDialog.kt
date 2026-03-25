@@ -41,7 +41,7 @@ fun GameExistDialog(
 
                 Text(
                     text = stringResource(R.string.game_exists),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleMedium
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -60,21 +60,30 @@ fun GameExistDialog(
                         onClick = onRestart,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.start_over))
+                        Text(
+                            stringResource(R.string.start_over),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                     }
 
                     TextButton(
                         onClick = onContinue,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.continue_game))
+                        Text(
+                            stringResource(R.string.continue_game),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                     }
 
                     TextButton(
                         onClick = onCancel,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.cancel))
+                        Text(
+                            stringResource(R.string.cancel),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                     }
                 }
             }

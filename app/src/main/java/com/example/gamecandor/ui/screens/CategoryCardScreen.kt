@@ -53,8 +53,10 @@ fun CategoryCardsScreen(navController: NavHostController, category: Category) {
                     onBack = { navController.popBackStack() },
                     showMenu = true,
                     menuItems = listOf(
-                        stringResource(R.string.settings) to { /* действие */ },
-                        stringResource(R.string.help) to { /* действие */ }
+                        stringResource(R.string.settings) to {
+                            navController.navigate(Screens.SETTINGS.name)
+                        },
+//                        stringResource(R.string.help) to { /* действие */ }
                     )
                 )
             },
@@ -96,8 +98,10 @@ fun CategoryCardsScreen(navController: NavHostController, category: Category) {
                     onBack = { selectedCard = null },
                     showMenu = true,
                     menuItems = listOf(
-                        stringResource(R.string.settings) to { /* действие */ },
-                        stringResource(R.string.help) to { /* действие */ }
+                        stringResource(R.string.settings) to {
+                            navController.navigate(Screens.SETTINGS.name)
+                        },
+                        "Мои ответы (В поздних версиях)" to { /* действие */ }
                     )
                 )
             },

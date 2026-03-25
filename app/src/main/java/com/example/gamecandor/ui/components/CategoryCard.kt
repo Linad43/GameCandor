@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,13 +27,13 @@ import com.example.gamecandor.model.Category
 fun CategoryCard(
     category: Category,
     modifier: Modifier = Modifier,
-    onClick: @Composable () -> Unit
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp)),
-//            .clickable { onClick() },
+            .clip(RoundedCornerShape(20.dp))
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Box {
@@ -56,7 +57,7 @@ fun CategoryCard(
             Text(
                 text = category.name,
                 color = Color.White,
-                fontSize = 22.sp,
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .align(Alignment.Center)

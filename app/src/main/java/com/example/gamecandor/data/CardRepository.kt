@@ -7,7 +7,7 @@ import com.example.gamecandor.model.Question
 import com.example.gamecandor.model.QuestionWithAnswer
 
 object CardRepository {
-
+    const val TOTAL_CARDS = 88
     private var cards: List<Card> = emptyList()
     private val categoryDecks = mutableMapOf<Category, MutableList<Card>>()
     private var questions: List<Question> = emptyList()

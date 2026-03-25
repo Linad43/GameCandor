@@ -1,0 +1,249 @@
+<div class="rules">
+    <style>
+        /* 🔥 ПЕРЕМЕННАЯ РАЗМЕРА */
+        :root {
+            --base-font-size: 16px;
+        }
+        /* 🔥 БАЗА */
+        body {
+            margin: 0;
+            padding: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #222;
+
+            font-size: var(--base-font-size);/* size */
+        }
+
+        /* 🖼 ФОН */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background: url("bg_rules.jpg") center/cover no-repeat;
+
+            filter: brightness(0.6);
+            z-index: -2;
+        }
+
+        /* 🔥 Заголовки */
+        h1, h2, h3 {
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+<!--        h1 { font-size: 28px; margin-bottom: 16px; }-->
+<!--        h2 { margin-top: 28px; font-size: 20px; }-->
+<!--        h3 { font-size: 16px; color: #666; }-->
+        /* 👇 Заголовки тоже через переменную */
+        h1 { font-size: calc(var(--base-font-size) * 1.8); margin-bottom: 16px; }
+        h2 { margin-top: 28px; font-size: calc(var(--base-font-size) * 1.4); }
+        h3 { font-size: calc(var(--base-font-size) * 1.1); color: #666; }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: rgba(0,0,0,0.15);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Текст и списки */
+        p { margin: 10px 0; }
+        ul { padding-left: 20px; margin: 12px 0; }
+        li { margin-bottom: 6px; }
+
+        /* 🔹 Hint */
+        .hint {
+            background: rgba(179, 157, 219, 0.4);
+            padding: 14px;
+            border-radius: 12px;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+
+        /* 🔸 Important */
+        .important {
+            background: rgba(255, 243, 205, 0.6);
+            padding: 14px;
+            border-radius: 12px;
+            margin: 14px 0;
+            font-weight: 500;
+        }
+
+        /* ✨ Категории */
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .tag-body { background: #7c0302; }
+        .tag-activity { background: #7bcf42; }
+        .tag-contacts { background: #feda0e; color: #333; }
+        .tag-meaning { background: #406cb7; }
+
+        /* 💎 СТЕКЛЯННЫЕ КАРТОЧКИ */
+        section {
+            margin-bottom: 28px;
+
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+
+            padding: 16px;
+            border-radius: 16px;
+
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+
+            /* стартовое состояние для анимации */
+            opacity: 0;
+            transform: translateY(20px);
+
+            transition: all 0.5s ease;
+        }
+
+        /* видимое состояние */
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ✨ Нажатие */
+        section:active {
+            transform: scale(0.98);
+        }
+
+    </style>
+
+    <!-- INTRO -->
+    <section data-type="intro">
+        <h2>Цель игры</h2>
+        <ul>
+            <li>познакомиться с собой</li>
+            <li>принять себя</li>
+            <li>раскрыться другим</li>
+        </ul>
+        <h2>Количество игроков</h2>
+        <ul><li>от 1 до 6</li></ul>
+    </section>
+
+    <!-- STANDARD -->
+    <section data-type="standard">
+        <h2>Стандартные правила</h2>
+        <p>В игре есть четыре категории:</p>
+        <ul>
+            <li><span class="tag tag-body">Тело</span></li>
+            <li><span class="tag tag-activity">Деятельность</span></li>
+            <li><span class="tag tag-contacts">Контакты</span></li>
+            <li><span class="tag tag-meaning">Смыслы</span></li>
+        </ul>
+        <div class="hint">В приложении категории уже настроены — вы просто выбираете нужную и открываете карточку</div>
+    </section>
+
+    <section data-type="standard">
+        <h2>Ход игры</h2>
+        <ul>
+            <li>Игрок выбирает категорию и открывает карточку. На карточке есть три вопроса.</li>
+            <li>Игрок выбирает один вопрос, на который готов ответить искренне и открыто.</li>
+            <li>Первый игрок зачитывает вопрос и отвечает.</li>
+        </ul>
+        <blockquote class="important">Важно: уважайте границы других игроков и чувство безопасности.</blockquote>
+        <ul>
+            <li>Далее отвечает следующий игрок.</li>
+            <li>Сыгранные карточки автоматически отправляются в отбой.</li>
+        </ul>
+        <div class="hint">В приложении это реализовано через свайп вправо</div>
+    </section>
+
+    <section data-type="alternative">
+        <h2>Альтернативные правила</h2>
+        <p>Если вы достаточно близки, можно открыть карточку и ответить на все три вопроса.</p>
+        <p>После этого карточка отправляется в отбой.</p>
+    </section>
+
+    <section data-type="random">
+        <h2>Случайные карточки</h2>
+        <p>Вы можете включить режим случайных вопросов.</p>
+        <p>В этом режиме карточки будут выдаваться случайным образом из разных категорий.</p>
+        <div class="hint">Это отдельный режим внутри приложения</div>
+    </section>
+
+    <section data-type="standard">
+        <h2>Продолжение игры</h2>
+        <p>После того как каждый игрок ответил на вопрос из выбранной категории, переходите к следующей.</p>
+        <p>Игра продолжается по тому же принципу.</p>
+        <div class="hint">Приложение запоминает сыгранные карточки, поэтому вопросы не повторяются</div>
+    </section>
+
+    <section data-type="support">
+        <h2>Поддерживающие фразы</h2>
+        <ul>
+            <li>Что я могу для тебя сейчас сделать?</li>
+            <li>Могу я тебя обнять?</li>
+            <li>Я ценю твою открытость</li>
+            <li>Как о тебе позаботиться?</li>
+            <li>Я принимаю твоё состояние, ты меня не пугаешь</li>
+            <li>Я понимаю, что тебе может что-то не нравиться, но я вижу тебя красивым(ой)</li>
+            <li>Что тебе важно сейчас услышать?</li>
+        </ul>
+        <blockquote class="important">Никто не умеет читать мысли. Просить о помощи — значит заботиться о себе. Уметь принимать любовь так же важно, как и отдавать её.</blockquote>
+    </section>
+
+    <section data-type="ending">
+        <h2>Выход из игры</h2>
+        <p>В игре нет победителей и проигравших.</p>
+        <p>Рекомендуется завершать игру после четырёх кругов (когда каждый игрок ответил на три вопроса из каждой категории).</p>
+        <p>Вы можете выбрать комфортное количество кругов.</p>
+    </section>
+
+    <section data-type="solo">
+        <h2>Одиночная игра</h2>
+        <p>Вы можете играть наедине с собой.</p>
+        <p>Отвечайте на вопросы самостоятельно.</p>
+        <div class="hint">В приложении есть поле для записи ответов — они сохраняются только у вас</div>
+        <p>Если вам попался вопрос, на который вы уже отвечали, вы можете открыть свой предыдущий ответ.</p>
+    </section>
+
+    <section data-type="solo">
+        <h2>Ход одиночной игры</h2>
+        <ul>
+            <li>Отвечайте на вопросы из разных категорий по очереди</li>
+            <li>Используйте случайный режим</li>
+        </ul>
+        <div class="hint">Приложение будет показывать только те вопросы, на которые вы ещё не отвечали</div>
+    </section>
+
+    <section data-type="solo">
+        <h2>Рекомендации</h2>
+        <p>Ответьте на 3–5 вопросов из каждой категории и затем перечитайте свои ответы.</p>
+        <p>Будьте честны с собой.</p>
+        <p>Ваши эмоции важны.<br>В вас уже есть всё, чтобы справиться.</p>
+    </section>
+
+    <!-- JS для анимации при скролле с повторным появлением -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sections = document.querySelectorAll("section");
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");    // появляется
+                    } else {
+                        entry.target.classList.remove("visible"); // исчезает при уходе
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</div>

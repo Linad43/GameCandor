@@ -11,5 +11,6 @@ enum class Screens {
     NEW_GAME,
     RANDOM_CARD,
     SINGLE,
-    RULES
+    RULES,
+    SETTINGS
 }

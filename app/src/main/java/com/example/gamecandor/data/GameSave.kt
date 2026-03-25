@@ -10,5 +10,7 @@ data class GameSave(
 
 @Serializable
 data class GameSaveList(
+    val language: LanguageText = LanguageText.RU,
+    val textSize: TextSize = TextSize.MEDIUM,
     val games: MutableList<GameSave> = mutableListOf()
 )

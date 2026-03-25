@@ -19,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.gamecandor.R
 import com.example.gamecandor.data.CardRepository
 import com.example.gamecandor.data.GameRepository
 import com.example.gamecandor.data.GameSession
+import com.example.gamecandor.ui.components.GameCard
 import com.example.gamecandor.ui.screens.dialogs.AppTopBar
 
 @Composable
@@ -40,8 +42,10 @@ fun LoadGameScreen(navController: NavHostController) {
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    stringResource(R.string.settings) to { /* действие */ },
-                    stringResource(R.string.help) to { /* действие */ }
+                    stringResource(R.string.settings) to {
+                        navController.navigate(Screens.SETTINGS.name)
+                    },
+//                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -59,23 +63,31 @@ fun LoadGameScreen(navController: NavHostController) {
             ) {
                 Text(
                     stringResource(R.string.choice_game),
-                    style = MaterialTheme.typography.headlineLarge,
-                    modifier = Modifier.padding(bottom = 16.dp)
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    color = Color.White,
+                    textAlign = TextAlign.Center
                 )
 
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     items(games) { game ->
-                        Button(onClick = {
-                            GameSession.currentGame = game
-                            CardRepository.loadCards(context)
-                            if (CardRepository.getCards(context).isEmpty()) {
-                                navController.navigate(Screens.END_GAME.name)
-                            } else {
-                                navController.navigate(Screens.CHOICE_TYPE_GAME.name)
+
+                        GameCard(
+                            gameName = game,
+                            onClick = {
+                                GameSession.currentGame = game
+                                CardRepository.loadCards(context)
+
+                                if (CardRepository.getCards(context).isEmpty()) {
+                                    navController.navigate(Screens.END_GAME.name)
+                                } else {
+                                    navController.navigate(Screens.CHOICE_TYPE_GAME.name)
+                                }
                             }
-                        }, modifier = Modifier.fillMaxWidth()) {
-                            Text(game)
-                        }
+                        )
                     }
                 }
             }

@@ -6,10 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.gamecandor.data.TextSize
 import com.example.gamecandor.model.Category
 
 @Composable
-fun GameApp() {
+fun GameApp(onTextSizeChange: (TextSize) -> Unit) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Screens.WELCOME.name) {
@@ -44,5 +45,6 @@ fun GameApp() {
         composable(Screens.SINGLE.name) { AnswersListScreen(navController) }
         composable(Screens.RULES.name) { RulesScreen(navController) }
         composable(Screens.WELCOME.name) { WelcomeScreen(navController) }
+        composable(Screens.SETTINGS.name) { SettingsScreen(navController, onTextSizeChange) }
     }
 }

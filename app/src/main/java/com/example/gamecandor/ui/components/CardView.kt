@@ -49,7 +49,6 @@ fun CardContent(card: Card) {
         modifier = Modifier
             .fillMaxSize()
             .padding(25.dp),
-//            .height(420.dp),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {

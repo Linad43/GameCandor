@@ -36,8 +36,10 @@ fun ChoiceTypeGameScreen(navController: NavHostController) {
                 onBack = { navController.popBackStack() },
                 showMenu = true,
                 menuItems = listOf(
-                    stringResource(R.string.settings) to { /* действие */ },
-                    stringResource(R.string.help) to { /* действие */ }
+                    stringResource(R.string.settings) to {
+                        navController.navigate(Screens.SETTINGS.name)
+                    },
+//                    stringResource(R.string.help) to { /* действие */ }
                 )
             )
         },
@@ -53,15 +55,22 @@ fun ChoiceTypeGameScreen(navController: NavHostController) {
                 Text(
                     text = GameSession.currentGame,
                     style = MaterialTheme.typography.headlineLarge,
-                    modifier = Modifier.padding(bottom = 32.dp)
+                    modifier = Modifier.padding(bottom = 32.dp),
+                    color = Color.White
                 )
                 Button(
                     onClick = {
                         if (!emptyCards) navController.navigate(Screens.CATEGORY.name)
-                        else navController.navigate(Screens.END_GAME.name) },
+                        else navController.navigate(Screens.END_GAME.name)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(stringResource(R.string.standard_rules))
+                    Text(
+                        stringResource(R.string.standard_rules),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
                 }
                 Button(
                     onClick = {
@@ -70,7 +79,12 @@ fun ChoiceTypeGameScreen(navController: NavHostController) {
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(stringResource(R.string.random_card))
+                    Text(
+                        stringResource(R.string.random_card),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier
+                            .padding(16.dp)
+                    )
                 }
             }
         }
